@@ -14,7 +14,7 @@ export async function POST(req: Request){
     
         const existingUser = await User.findOne({ email })
         if (existingUser) {
-            return ResponseHelper.error("Email is already taken", 400)
+            return ResponseHelper.error("Email is already taken", 401)
         }
     
         const hashedPassword = await bcrypt.hash(password, 10);
