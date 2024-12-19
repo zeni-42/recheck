@@ -42,14 +42,6 @@ export async function POST(req: Request){
         user.token = generateToken;
         await user.save();
 
-        const cookieStore = await cookies();
-        cookieStore.set({
-            name: "token",
-            value: user?.token,
-            httpOnly: true,
-            secure: true
-        })
-
         const loggedInUser = await User.findById(user._id).select(
             "-password -token -verificationCode -verificationcodeExpiry"
         )

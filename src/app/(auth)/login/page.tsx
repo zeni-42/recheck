@@ -22,9 +22,9 @@ export default function Page(){
     const onSubmit = async (data: FormData) => {
         try {
             const res = await axios.post('/api/login', data)
-            console.log(res);
             if (res.status === 200) {
                 toast.success(`Welcome ${user}`)
+                sessionStorage.setItem("userId", res.data.data._id)
                 reset();
                 router.push('/dashboard')
             }
@@ -54,6 +54,9 @@ export default function Page(){
                 <p className="px-10 font-mono text-xl absolute top-20 text-md" >Login to see your Dashboard</p>
             </div>
             <div className="w-1/2 h-screen flex justify-center items-center flex-col gap-10 ">
+                <div>
+                    <h1 className="text-4xl font-extrabold uppercase" >Recheck</h1>
+                </div>
                 <div className="w-2/3 h-1/2 rounded-3xl border border-zinc-800 p-7 flex justify-start items-center flex-col gap-5" >
                     <h1 className="text-2xl font-semibold uppercase " >Login </h1>
                     <form onSubmit={handleSubmit(onSubmit)} className="w-full h-2/3 flex justify-start items-center flex-col px-5" >
@@ -70,7 +73,7 @@ export default function Page(){
                         </div>
                     </form>
                     <p className=" w-full px-7 text-zinc-400 " >
-                        don't have an account? <Link href='/signup' className="underline text-slate-50 ">Login</Link>
+                        don't have an account? <Link href='/signup' className="underline text-slate-50 ">Signup</Link>
                     </p>
                     <p className="text-zinc-700 pt-5" >
                         Google authentication will be provided soon
