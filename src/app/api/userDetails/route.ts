@@ -18,6 +18,7 @@ export async function POST(req: Request){
         )
         return ResponseHelper.success(userDetails, "User details", 200)
     } catch (error) {
-        console.log(`Somthinng wen wrong in userDetails route | ${error}`);
+        console.log(`Somthing went wrong in userDetails route | ${error}`);
+        return ResponseHelper.error("Inetrnal server Error", 500, error)
     }
 }

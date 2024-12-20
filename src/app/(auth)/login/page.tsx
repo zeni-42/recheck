@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { KeyRound, Mail } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 interface FormData {
     email: string,
@@ -14,7 +15,8 @@ interface FormData {
 }
 
 export default function Page(){
-    const user = "user"
+    const [fullName, setFullName] = useState("")
+
 
     const router = useRouter()
     const { register, handleSubmit, reset, formState: {errors} } = useForm<FormData>();
@@ -23,10 +25,13 @@ export default function Page(){
         try {
             const res = await axios.post('/api/login', data)
             if (res.status === 200) {
-                toast.success(`Welcome ${user}`)
                 sessionStorage.setItem("userId", res.data.data._id)
-                reset();
+                sessionStorage.setItem("fullName", res.data.data.fullName)
+                sessionStorage.setItem("isVerified", res.data.data.isVerified)
+                setFullName(res.data.data.fullName)
+                toast.success(`Welcome ${fullName}`)
                 router.push('/dashboard')
+                reset();
             }
         } catch (error : any) {
             if (error.response) {
@@ -62,11 +67,11 @@ export default function Page(){
                     <form onSubmit={handleSubmit(onSubmit)} className="w-full h-2/3 flex justify-start items-center flex-col px-5" >
                         <div className="w-full  ">
                             <Mail className="translate-y-[42px] translate-x-5"/>
-                            <input {...register("email", { required: true })} type="eamil" className="w-full bg-[#0a0a0a] border border-zinc-700 h-16 rounded-xl outline-none px-16 text-lg" placeholder="Email" />
+                            <input {...register("email", { required: true })} type="eamil" autoComplete="off" className="w-full bg-[#0a0a0a] border border-zinc-700 h-16 rounded-xl outline-none px-16 text-lg" placeholder="Email" />
                         </div>
                         <div className="w-full  ">
                             <KeyRound className="translate-y-[42px] translate-x-5"/>    
-                            <input {...register("password", { required: true })} type="password" className="w-full bg-[#0a0a0a] border border-zinc-700 h-16 rounded-xl outline-none px-16 text-lg" placeholder="Password" />
+                            <input {...register("password", { required: true })} type="password" autoComplete="off" className="w-full bg-[#0a0a0a] border border-zinc-700 h-16 rounded-xl outline-none px-16 text-lg" placeholder="Password" />
                         </div>
                         <div className="w-full pt-7" >
                             <button type="submit" className="w-full h-14 text-lg bg-white text-zinc-950 hover:bg-zinc-50 rounded-xl "> Login </button>

@@ -29,15 +29,15 @@ export default function Navbar(){
                 animate = {{ x: "0%" }}
                 transition={{ duration: 0.5, delay:0.2 }}
                 exit={{ x: "100%" }}
-                className="fixed h-[94vh] top-14 right-0 w-1/5 bg-zinc-900 flex justify-between flex-col ">
+                className="fixed h-[94vh] top-14 right-0 w-1/5 bg-zinc-900/50 backdrop-blur-3xl flex justify-between flex-col ">
                     <div>
-                        <Link href={""} className="hover:bg-zinc-800 w-full h-14 border-b border-zinc-800 flex justify-start items-center px-10 gap-3 " >
+                        <Link href={"/dashboard"} className="hover:bg-zinc-800/50 hover:backdrop-blur-2xl w-full h-14 border-b border-zinc-800 flex justify-start items-center px-10 gap-3 " >
                             <House /><h1 className="text-lg" > Dashboard </h1>
                         </Link>
-                        <Link href={""} className="hover:bg-zinc-800 w-full h-14 border-b border-zinc-800 flex justify-start items-center px-10 gap-3 " >
+                        <Link href={"/servers"} className="hover:bg-zinc-800/50 hover:backdrop-blur-2xl w-full h-14 border-b border-zinc-800 flex justify-start items-center px-10 gap-3 " >
                             <Server /><h1 className="text-lg" > Servers </h1>
                         </Link>
-                        <Link href={""} className="hover:bg-zinc-800 w-full h-14 border-b border-zinc-800 flex justify-start items-center px-10 gap-3 " >
+                        <Link href={"/settings"} className="hover:bg-zinc-800/50 hover:backdrop-blur-2xl w-full h-14 border-b border-zinc-800 flex justify-start items-center px-10 gap-3 " >
                             <Settings /><h1 className="text-lg" > Settings </h1>
                         </Link>
                     </div>

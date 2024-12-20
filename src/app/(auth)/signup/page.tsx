@@ -61,15 +61,15 @@ export default function Page(){
                     <form onSubmit={handleSubmit(onSubmit)} className="w-full h-2/3 flex justify-evenly items-center flex-col px-5" >
                         <div className="w-full  ">
                             <UserRound className="translate-y-[42px] translate-x-5"/>
-                            <input {...register("fullName", {required: true})} type="text" className="w-full bg-[#0a0a0a] border border-zinc-700 h-16 rounded-xl outline-none px-16 text-lg" placeholder="Full Name" />
+                            <input {...register("fullName", {required: true})} type="text" autoComplete="off" className="w-full bg-[#0a0a0a] border border-zinc-700 h-16 rounded-xl outline-none px-16 text-lg" placeholder="Full Name" />
                         </div>
                         <div className="w-full  ">
                             <Mail className="translate-y-[42px] translate-x-5"/>
-                            <input {...register("email", { required: true })} type="eamil" className="w-full bg-[#0a0a0a] border border-zinc-700 h-16 rounded-xl outline-none px-16 text-lg" placeholder="Email" />
+                            <input {...register("email", { required: true })} type="eamil" autoComplete="off" className="w-full bg-[#0a0a0a] border border-zinc-700 h-16 rounded-xl outline-none px-16 text-lg" placeholder="Email" />
                         </div>
                         <div className="w-full  ">
                             <KeyRound className="translate-y-[42px] translate-x-5"/>    
-                            <input {...register("password", { required: true })} type="password" className="w-full bg-[#0a0a0a] border border-zinc-700 h-16 rounded-xl outline-none px-16 text-lg" placeholder="Password" />
+                            <input {...register("password", { required: true })} type="password" autoComplete="off" className="w-full bg-[#0a0a0a] border border-zinc-700 h-16 rounded-xl outline-none px-16 text-lg" placeholder="Password" />
                         </div>
                         <div className="w-full pt-7" >
                             <button type="submit" className="w-full h-14 text-lg bg-white text-zinc-950 hover:bg-zinc-50 rounded-xl "> Sign up </button>
