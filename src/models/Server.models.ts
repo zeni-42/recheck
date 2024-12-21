@@ -31,11 +31,11 @@ const serverSchema: Schema<serverInterface> = new mongoose.Schema({
     isActive: {
         type: Boolean,
         required: true,
-        default: false
+        default: null
     },
     createdBy: {
         type: Schema.Types.ObjectId,
-        ref: User,
+        ref: "User",
         required: true
     }
 

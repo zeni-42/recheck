@@ -42,7 +42,11 @@ const userSchema: Schema<userInterface> = new mongoose.Schema({
     verificationcodeExpiry: {
         type: Date,
         required: true
-    }
+    },
+    servers: [{
+        type: Schema.Types.ObjectId,
+        ref: "Servers"
+    }]
 }, { timestamps: true })
 
 export const User = (mongoose.models.User as mongoose.Model<userInterface>) ||  mongoose.model<userInterface>("User", userSchema)
