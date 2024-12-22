@@ -31,7 +31,7 @@ const serverSchema: Schema<serverInterface> = new mongoose.Schema({
     isActive: {
         type: Boolean,
         required: true,
-        default: null
+        default: false
     },
     createdBy: {
         type: Schema.Types.ObjectId,
@@ -41,4 +41,4 @@ const serverSchema: Schema<serverInterface> = new mongoose.Schema({
 
 }, { timestamps: true })
 
-export const Servers = (mongoose.models.Servers as mongoose.Model<serverInterface>) || mongoose.model<serverInterface>("Server", serverSchema)
+export const Servers = (mongoose.models.Server as mongoose.Model<serverInterface>) || mongoose.model<serverInterface>("Server", serverSchema)

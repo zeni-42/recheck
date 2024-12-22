@@ -23,15 +23,50 @@ export default function Page(){
     }
     const isVerifiedFromLocalStorage = sessionStorage.getItem("isVerified")
 
+    const handleResponse = (status: number) => {
+        switch (status) {
+            case 200:
+                toast.success("Server added successfully");
+                break;
+            case 400:
+                toast.error("All fields are required");
+                break;
+            case 420:
+                toast.error("Server already exists");
+                break;
+            case 460:
+                toast.error("Failed to update user");
+                break;
+            case 470:
+                toast.error("Failed to add server");
+                break;
+            case 500:
+                toast.error("Internal server error");
+                break;
+            default:
+                toast.error("Something went wrong. Please try again.");
+        }
+    };
+
     const verifyAndAddserver = async (data: object) => {
-        const userId = sessionStorage.getItem("userId")
-        const userDetails = await axios.post('/api/userDetails',{ userId })
-        // console.log(data);
-        const updatedData = {...data, userDetails: userDetails.data.data}
-        const serverResponseForAddingServer = await axios.post("/api/addSerevr",{ updatedData }) 
-        console.log(serverResponseForAddingServer);
-        reset()
-        setIsAddedActive(false)
+        try {
+            const userId = sessionStorage.getItem("userId")
+            if (!userId) {
+                toast.error("Unauthorized access")
+                router.push('/login')
+            }
+            const userDetails = await axios.post('/api/userDetails',{ userId })
+            const updatedData = {...data, userDetails: userDetails.data.data}
+            const serverResponseForAddingServer = await axios.post("/api/addServer",{ ...updatedData })
+            handleResponse(serverResponseForAddingServer.status)
+            if (serverResponseForAddingServer.status === 200) {
+                reset()
+                setIsAddedActive(false)
+            }
+        } catch (error) {
+            console.error("Error adding server:", error);
+            toast.error("An unexpected error occurred. Please try again.")
+        }
     }
 
     useEffect(() => {
@@ -77,8 +112,8 @@ export default function Page(){
                                 <input autoComplete="off" {...register("serverName")} className="text-lg px-5 w-full rounded-lg h-14 outline-none bg-transparent border border-zinc-800" type="text" />
                             </div>
                             <div className="w-full h-1/4 flex justify-center items-start flex-col px-40 gap-5 " >
-                                <h1 className="text-3xl font-mono " >Server URL:</h1>
-                                <input autoComplete="off" {...register("serverUrl")} className="text-lg px-5 w-full rounded-lg h-14 outline-none bg-transparent border border-zinc-800" type="text" />
+                                <h1 className="text-3xl font-mono " >Server Address:</h1>
+                                <input autoComplete="off" {...register("serverAddress")} className="text-lg px-5 w-full rounded-lg h-14 outline-none bg-transparent border border-zinc-800" type="text" />
                             </div>
                             <div className="w-full h-1/4 flex justify-center items-start flex-col px-40 gap-5 " >
                                 <h1 className="text-3xl font-mono " >Default time:</h1>

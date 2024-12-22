@@ -1,7 +1,10 @@
+import { DBConnect } from "@/lib/dbconnect";
 import { ResponseHelper } from "@/lib/responseHelper";
 import { User } from "@/models/User.models";
 
 export async function POST(req: Request){
+    await DBConnect();
+
     try {
         const { userId } = await req.json();
         if (!userId) {
@@ -14,7 +17,7 @@ export async function POST(req: Request){
         }
     
         const userDetails = await User.findById(userId).select(
-            "-password -verificationCode -token"
+            "-password -verificationCode -token -createdAt -updatedAt"
         )
         return ResponseHelper.success(userDetails, "User details", 200)
     } catch (error) {
