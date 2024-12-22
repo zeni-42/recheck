@@ -1,6 +1,6 @@
 import { DBConnect } from "@/lib/dbconnect";
 import { ResponseHelper } from "@/lib/responseHelper";
-import { verifyTokenFromHeader } from "@/lib/verifyToken";
+// import { verifyTokenFromHeader } from "@/lib/verifyToken";
 import { User } from "@/models/User.models";
 import { headers } from "next/headers";
 
@@ -16,7 +16,7 @@ export async function POST(req: Request) {
         }
 
         const token = (await headers()).get('token')
-        await verifyTokenFromHeader(user?._id, token!)
+        // await verifyTokenFromHeader(user?._id, token!)
 
         if (!userId || !otp) {
             return ResponseHelper.error("All fields are required", 400)

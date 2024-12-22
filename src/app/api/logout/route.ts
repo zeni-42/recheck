@@ -1,4 +1,4 @@
-import { DBConnect } from "@/lib/dbconnect";
+    import { DBConnect } from "@/lib/dbconnect";
 import { ResponseHelper } from "@/lib/responseHelper";
 import { User } from "@/models/User.models";
 

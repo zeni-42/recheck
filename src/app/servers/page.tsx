@@ -34,10 +34,10 @@ export default function Page(){
             case 420:
                 toast.error("Server already exists");
                 break;
-            case 460:
+            case 414:
                 toast.error("Failed to update user");
                 break;
-            case 470:
+            case 415:
                 toast.error("Failed to add server");
                 break;
             case 500:
@@ -49,23 +49,18 @@ export default function Page(){
     };
 
     const verifyAndAddserver = async (data: object) => {
-        try {
-            const userId = sessionStorage.getItem("userId")
-            if (!userId) {
-                toast.error("Unauthorized access")
-                router.push('/login')
-            }
-            const userDetails = await axios.post('/api/userDetails',{ userId })
-            const updatedData = {...data, userDetails: userDetails.data.data}
-            const serverResponseForAddingServer = await axios.post("/api/addServer",{ ...updatedData })
-            handleResponse(serverResponseForAddingServer.status)
-            if (serverResponseForAddingServer.status === 200) {
-                reset()
-                setIsAddedActive(false)
-            }
-        } catch (error) {
-            console.error("Error adding server:", error);
-            toast.error("An unexpected error occurred. Please try again.")
+        const userId = sessionStorage.getItem("userId")
+        if (!userId) {
+            toast.error("Unauthorized access")
+            router.push('/login')
+        }
+        const userDetails = await axios.post('/api/userDetails',{ userId })
+        const updatedData = {...data, userDetails: userDetails.data.data}
+        const serverResponseForAddingServer = await axios.post("/api/addServer",{ ...updatedData })
+        handleResponse(serverResponseForAddingServer.status)
+        if (serverResponseForAddingServer.status === 200) {
+            reset()
+            setIsAddedActive(false)
         }
     }
 
@@ -112,7 +107,7 @@ export default function Page(){
                                 <input autoComplete="off" {...register("serverName")} className="text-lg px-5 w-full rounded-lg h-14 outline-none bg-transparent border border-zinc-800" type="text" />
                             </div>
                             <div className="w-full h-1/4 flex justify-center items-start flex-col px-40 gap-5 " >
-                                <h1 className="text-3xl font-mono " >Server Address:</h1>
+                                <h1 className="text-3xl font-mono " >Server URL:</h1>
                                 <input autoComplete="off" {...register("serverAddress")} className="text-lg px-5 w-full rounded-lg h-14 outline-none bg-transparent border border-zinc-800" type="text" />
                             </div>
                             <div className="w-full h-1/4 flex justify-center items-start flex-col px-40 gap-5 " >
